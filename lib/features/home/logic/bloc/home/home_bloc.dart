@@ -28,34 +28,38 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   ) async {
     emit(HomeLoading());
 
-    final categoriesResult = await getCategoriesUseCase(NoParams());
-    final destinationsResult = await getDestinationsUseCase(NoParams());
-    final offersResult = await getOffersUseCase(NoParams());
-    final pointsResult = await getUserPointsUseCase(NoParams());
+    try {
+      final categoriesResult = await getCategoriesUseCase(NoParams());
+      final destinationsResult = await getDestinationsUseCase(NoParams());
+      final offersResult = await getOffersUseCase(NoParams());
+      final pointsResult = await getUserPointsUseCase(NoParams());
 
-    categoriesResult.fold((failure) => emit(HomeError(failure.message)), (
-      categories,
-    ) {
-      destinationsResult.fold((failure) => emit(HomeError(failure.message)), (
-        destinations,
+      categoriesResult.fold((failure) => emit(HomeError(failure.message)), (
+        categories,
       ) {
-        offersResult.fold((failure) => emit(HomeError(failure.message)), (
-          offers,
+        destinationsResult.fold((failure) => emit(HomeError(failure.message)), (
+          destinations,
         ) {
-          pointsResult.fold((failure) => emit(HomeError(failure.message)), (
-            points,
+          offersResult.fold((failure) => emit(HomeError(failure.message)), (
+            offers,
           ) {
-            emit(
-              HomeLoaded(
-                categories: categories,
-                destinations: destinations,
-                offers: offers,
-                userPoints: points,
-              ),
-            );
+            pointsResult.fold((failure) => emit(HomeError(failure.message)), (
+              points,
+            ) {
+              emit(
+                HomeLoaded(
+                  categories: categories,
+                  destinations: destinations,
+                  offers: offers,
+                  userPoints: points,
+                ),
+              );
+            });
           });
         });
       });
-    });
+    } catch (e) {
+      emit(HomeError(e.toString()));
+    }
   }
 }

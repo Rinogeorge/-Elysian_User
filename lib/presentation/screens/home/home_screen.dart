@@ -16,15 +16,13 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            // Load data if in initial state
+        child: BlocConsumer<HomeBloc, HomeState>(
+          listener: (context, state) {
             if (state is HomeInitial) {
-              WidgetsBinding.instance.addPostFrameCallback((_) {
-                context.read<HomeBloc>().add(const LoadHomeData());
-              });
+              context.read<HomeBloc>().add(const LoadHomeData());
             }
-
+          },
+          builder: (context, state) {
             if (state is HomeInitial || state is HomeLoading) {
               return const Center(child: CircularProgressIndicator());
             }

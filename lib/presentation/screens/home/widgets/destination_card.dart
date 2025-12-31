@@ -15,12 +15,13 @@ class DestinationCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.shade300, width: 1),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
+            color: Colors.black.withOpacity(0.1),
             spreadRadius: 1,
-            blurRadius: 4,
-            offset: const Offset(0, 2),
+            blurRadius: 8,
+            offset: const Offset(0, 4),
           ),
         ],
       ),
@@ -45,84 +46,78 @@ class DestinationCard extends StatelessWidget {
             ),
           ),
           // Content
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    destination.name,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  destination.name,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+                // Rating
+                Row(
+                  children: [
+                    ...List.generate(5, (index) {
+                      return Icon(
+                        Icons.star,
+                        size: 14,
+                        color:
+                            index < destination.rating.floor()
+                                ? Colors.amber
+                                : Colors.grey[300],
+                      );
+                    }),
+                    const SizedBox(width: 4),
+                    Text(
+                      destination.rating.toString(),
+                      style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                     ),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
+                  ],
+                ),
+                const SizedBox(height: 8),
+                // Price
+                Text(
+                  'INR ${destination.startingPrice.toStringAsFixed(0)}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.black87,
                   ),
-                  const SizedBox(height: 4),
-                  // Rating
-                  Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      ...List.generate(5, (index) {
-                        return Icon(
-                          Icons.star,
-                          size: 12,
-                          color:
-                              index < destination.rating.floor()
-                                  ? Colors.amber
-                                  : Colors.grey[300],
-                        );
-                      }),
-                      const SizedBox(width: 4),
-                      Text(
-                        destination.rating.toString(),
-                        style: TextStyle(fontSize: 11, color: Colors.grey[600]),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 6),
-                  // Price
-                  Text(
-                    'INR ${destination.startingPrice.toStringAsFixed(0)}',
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  const Text(
-                    'Starting price',
-                    style: TextStyle(fontSize: 10, color: Colors.grey),
-                  ),
-                ],
-              ),
+                ),
+                const Text(
+                  'Starting price',
+                  style: TextStyle(fontSize: 11, color: Colors.grey),
+                ),
+              ],
             ),
           ),
           // Arrow button
-          Padding(
-            padding: const EdgeInsets.only(right: 12, bottom: 12),
-            child: Align(
-              alignment: Alignment.centerRight,
-              child: Container(
-                width: 32,
-                height: 32,
-                decoration: const BoxDecoration(
-                  color: Color(0xFF1E5BB8),
-                  shape: BoxShape.circle,
+          Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              margin: const EdgeInsets.all(12),
+              width: 36,
+              height: 36,
+              decoration: const BoxDecoration(
+                color: Color(0xFF1E5BB8),
+                shape: BoxShape.circle,
+              ),
+              child: IconButton(
+                padding: EdgeInsets.zero,
+                icon: const Icon(
+                  Icons.arrow_forward,
+                  color: Colors.white,
+                  size: 20,
                 ),
-                child: IconButton(
-                  padding: EdgeInsets.zero,
-                  icon: const Icon(
-                    Icons.arrow_forward,
-                    color: Colors.white,
-                    size: 18,
-                  ),
-                  onPressed: onTap,
-                ),
+                onPressed: onTap,
               ),
             ),
           ),

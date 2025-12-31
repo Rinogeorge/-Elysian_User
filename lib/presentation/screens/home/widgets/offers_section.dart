@@ -26,6 +26,7 @@ class OffersSection extends StatelessWidget {
         ListView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
           itemCount: offers.length,
           itemBuilder: (context, index) {
             return OfferCard(

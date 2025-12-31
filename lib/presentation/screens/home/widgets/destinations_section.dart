@@ -24,7 +24,7 @@ class DestinationsSection extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 320,
+          height: 340,
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
             padding: const EdgeInsets.symmetric(horizontal: 16),

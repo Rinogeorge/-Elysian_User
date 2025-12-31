@@ -9,6 +9,7 @@ import 'package:elysian_user/features/auth/logic/bloc/login/login_bloc.dart';
 import 'package:elysian_user/features/auth/logic/bloc/profile/profile_bloc.dart';
 import 'package:elysian_user/features/auth/logic/bloc/signup/signup_bloc.dart';
 import 'package:elysian_user/features/home/logic/bloc/home/home_bloc.dart';
+import 'package:elysian_user/features/home/logic/bloc/home/home_event.dart';
 import 'package:elysian_user/features/bookings/logic/bloc/bookings/bookings_bloc.dart';
 import 'package:elysian_user/features/navigation/logic/bloc/bottom_nav/bottom_nav_bloc.dart';
 
@@ -30,7 +31,9 @@ class ElysianApp extends StatelessWidget {
         BlocProvider(create: (_) => di.sl<SignupBloc>()),
         BlocProvider(create: (_) => di.sl<ProfileBloc>()),
         BlocProvider(create: (_) => di.sl<ForgotPasswordBloc>()),
-        BlocProvider(create: (_) => di.sl<HomeBloc>()),
+        BlocProvider(
+          create: (_) => di.sl<HomeBloc>()..add(const LoadHomeData()),
+        ),
         BlocProvider(create: (_) => di.sl<BookingsBloc>()),
         BlocProvider(create: (_) => di.sl<BottomNavBloc>()),
       ],

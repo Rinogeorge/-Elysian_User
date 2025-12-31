@@ -9,7 +9,6 @@ import 'package:elysian_user/presentation/screens/login/widget/sign_up_prompt.da
 import 'package:elysian_user/presentation/screens/login/widget/subtitle_text.dart';
 import 'package:elysian_user/presentation/screens/login/widget/topindicator.dart';
 import 'package:elysian_user/presentation/screens/login/widget/welcome_text.dart';
-
 import 'package:elysian_user/core/utils/validators.dart';
 import 'package:elysian_user/features/auth/logic/bloc/login/login_bloc.dart';
 import 'package:elysian_user/features/auth/logic/bloc/login/login_event.dart';
